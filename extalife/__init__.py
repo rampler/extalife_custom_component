@@ -689,7 +689,7 @@ class ExtaLifeChannel(Entity):
             is_timeout,
         )
 
-        return !is_timeout
+        return not is_timeout
 
     async def async_update(self):
         """Call to update state."""
