@@ -680,11 +680,8 @@ class ExtaLifeChannel(Entity):
 
     @property
     def available(self):
-        is_timeout = (
-            self.channel_data.get("is_timeout")
-            if self.config_entry.options.get(OPTIONS_GENERAL_DISABLE_NOT_RESPONDING)
-            else False
-        )
+        is_timeout = self.channel_data.get("is_timeout")
+            
         _LOGGER.debug(
             "available() for entity: %s. self.data_available: %s; 'is_timeout': %s",
             self.entity_id,
@@ -692,7 +689,7 @@ class ExtaLifeChannel(Entity):
             is_timeout,
         )
 
-        return self.data_available == True and is_timeout == False
+        return !is_timeout
 
     async def async_update(self):
         """Call to update state."""
