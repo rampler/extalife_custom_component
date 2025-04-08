@@ -580,7 +580,7 @@ class ExtaLifeAPI:
                 for state in device["state"]:
                     ch_no = state.get("channel", def_channel) if def_channel else state["channel"]      # pylint: disable=unused-variable
                     
-                    conf = self.get_channel_conf(str(device["id"]),str(state.get("channel", def_channel)))
+                    conf = await self.get_channel_conf(str(device["id"]),str(state.get("channel", def_channel)))
                     channel = {
                         # API channel, not TCP channel
                         "id": str(device["id"]) + "-" + str(state.get("channel", def_channel)),
