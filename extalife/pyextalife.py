@@ -474,23 +474,23 @@ class ExtaLifeAPI:
                 resp = await self._connection.async_execute_command(cmd, None)
                 # here is where the magic happens - transform TCP JSON data into API channel representation
                 resp.extend(FAKE_RECEIVERS)
-                channels.extend(self._get_channels_int(resp))
+                channels.extend(await self._get_channels_int(resp))
 
             if self.CHN_TYP_SENSORS in include:
                 cmd = self.CMD_FETCH_SENSORS
                 resp = await self._connection.async_execute_command(cmd, None)
                 resp.extend(FAKE_SENSORS)
-                channels.extend(self._get_channels_int(resp))
+                channels.extend(await self._get_channels_int(resp))
 
             if self.CHN_TYP_TRANSMITTERS in include:
                 cmd = self.CMD_FETCH_TRANSMITTERS
                 resp = await self._connection.async_execute_command(cmd, None)
-                channels.extend(self._get_channels_int(resp, dummy_ch=True))
+                channels.extend(await self._get_channels_int(resp, dummy_ch=True))
 
             if self.CHN_TYP_EXFREE_RECEIVERS in include:
                 cmd = self.CMD_FETCH_EXTAFREE
                 resp = await self._connection.async_execute_command(cmd, None)
-                channels.extend(self._get_channels_int(resp))
+                channels.extend(await self._get_channels_int(resp))
 
             return channels
 
@@ -498,7 +498,7 @@ class ExtaLifeAPI:
             _LOGGER.error("Command %s could not be executed", cmd)
             return None
             
-    def get_channel_conf(self, sensor_id, channel):
+    async def get_channel_conf(self, sensor_id, channel):
         try:
             cmd = self.CMD_FETCH_CONFIG
             cmd_data = {
@@ -512,7 +512,7 @@ class ExtaLifeAPI:
             log.error("Command %s could not be executed", cmd)
             return None
 
-    def _get_channels_int(self, data_js, dummy_ch=False):
+    async def _get_channels_int(self, data_js, dummy_ch=False):
         """
         data_js - list of TCP command data in JSON dict
         dummy_ch - dummy channel number? For Transmitters there is no channel info. Make it # per device
