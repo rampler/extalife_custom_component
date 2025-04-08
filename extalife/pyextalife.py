@@ -505,8 +505,7 @@ class ExtaLifeAPI:
              "id": sensor_id,
              "channel": channel
             }
-            resp = self.tcp.exec_command(cmd, cmd_data, 1.5)
-
+            resp = await self._connection.async_execute_command(cmd, cmd_data)
             return resp
 
         except TCPCmdError:
