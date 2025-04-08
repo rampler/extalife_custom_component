@@ -264,6 +264,7 @@ class ExtaLifeAPI:
     CMD_FETCH_EXTAFREE = 203
     CMD_VERSION = 151
     CMD_RESTART = 150
+    CMD_FETCH_CONFIG = 25
 
     # Actions
     ACTN_TURN_ON = "TURN_ON"
@@ -496,7 +497,21 @@ class ExtaLifeAPI:
         except TCPCmdError:
             _LOGGER.error("Command %s could not be executed", cmd)
             return None
+            
+    def get_channel_conf(self, sensor_id, channel):
+        try:
+            cmd = self.CMD_FETCH_CONFIG
+            cmd_data = {
+             "id": sensor_id,
+             "channel": channel
+            }
+            resp = self.tcp.exec_command(cmd, cmd_data, 1.5)
 
+            return resp
+
+        except TCPCmdError:
+            log.error("Command %s could not be executed", cmd)
+            return None
 
     @classmethod
     def _get_channels_int(cls, data_js, dummy_ch=False):
@@ -566,10 +581,12 @@ class ExtaLifeAPI:
                 dev.pop("state")
                 for state in device["state"]:
                     ch_no = state.get("channel", def_channel) if def_channel else state["channel"]      # pylint: disable=unused-variable
+                    
+                    conf = get_channel_conf(str(device["id"]),str(state.get("channel", def_channel)))
                     channel = {
                         # API channel, not TCP channel
                         "id": str(device["id"]) + "-" + str(state.get("channel", def_channel)),
-                        "data": {**state, **dev},
+                        "data": {**state, **dev, **conf},
                     }
                     channels.append(channel)
         return channels
