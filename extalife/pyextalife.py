@@ -513,8 +513,7 @@ class ExtaLifeAPI:
             log.error("Command %s could not be executed", cmd)
             return None
 
-    @classmethod
-    def _get_channels_int(cls, data_js, dummy_ch=False):
+    def _get_channels_int(self, data_js, dummy_ch=False):
         """
         data_js - list of TCP command data in JSON dict
         dummy_ch - dummy channel number? For Transmitters there is no channel info. Make it # per device
@@ -582,7 +581,7 @@ class ExtaLifeAPI:
                 for state in device["state"]:
                     ch_no = state.get("channel", def_channel) if def_channel else state["channel"]      # pylint: disable=unused-variable
                     
-                    conf = get_channel_conf(str(device["id"]),str(state.get("channel", def_channel)))
+                    conf = self.get_channel_conf(str(device["id"]),str(state.get("channel", def_channel)))
                     channel = {
                         # API channel, not TCP channel
                         "id": str(device["id"]) + "-" + str(state.get("channel", def_channel)),
