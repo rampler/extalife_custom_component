@@ -160,7 +160,8 @@ class ExtaLifeClimate(ExtaLifeChannel, ClimateEntity):
             {
                 "waiting_to_synchronize": data.get("waiting_to_synchronize"),
                 "temperature_old": data.get("temperature_old"),
-                "battery_status": data.get("battery_status")
+                "battery_status": data.get("battery_status"),
+                "last_sync": data.get("last_sync")
             }
         )
 
