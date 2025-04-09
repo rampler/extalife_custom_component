@@ -502,8 +502,8 @@ class ExtaLifeAPI:
         try:
             cmd = self.CMD_FETCH_CONFIG
             cmd_data = {
-             "id": sensor_id,
-             "channel": channel
+             "id": int(sensor_id),
+             "channel": int(channel)
             }
             resp = await self._connection.async_execute_command(cmd, cmd_data)
             return resp
