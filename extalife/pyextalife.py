@@ -499,7 +499,7 @@ class ExtaLifeAPI:
             return None
             
     async def get_channel_conf(self, sensor_id, channel):
-        if sensor_id.isnumeric() or channel.isnumeric():
+        if not sensor_id.isnumeric() or not channel.isnumeric():
           return {}
         try:
             cmd = self.CMD_FETCH_CONFIG
