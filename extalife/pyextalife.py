@@ -582,7 +582,7 @@ class ExtaLifeAPI:
                     
                     conf = (await self.get_channel_conf(str(device["id"]),str(state.get("channel", def_channel))))[0]['data']
                     
-                    _LOGGER.info("conf: "+conf)
+                    _LOGGER.info("conf: "+str(conf))
                     channel = {
                         # API channel, not TCP channel
                         "id": str(device["id"]) + "-" + str(state.get("channel", def_channel)),
