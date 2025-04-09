@@ -104,8 +104,9 @@ class ExtaLifeClimate(ExtaLifeChannel, ClimateEntity):
 
     @property
     def hvac_action(self):
-        # for now there's no data source to show it. data.power does not reflect this information
-        return None
+        if self.channel_data.get("valve_val") != 100:
+          return HVACAction.HEATING
+        return HVACAction.IDLE
 
     @property
     def hvac_mode(self):
