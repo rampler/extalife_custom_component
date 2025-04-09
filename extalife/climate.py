@@ -164,7 +164,8 @@ class ExtaLifeClimate(ExtaLifeChannel, ClimateEntity):
                 "last_sync": data.get("last_sync"),
                 "sync_time": data.get("sync_time"),
                 "button_lock": data.get("button_lock"),
-                "valve_val": data.get("valve_val")
+                "valve_val": data.get("valve_val"),
+                "data": data
             }
         )
 
