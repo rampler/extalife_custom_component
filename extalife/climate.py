@@ -104,6 +104,8 @@ class ExtaLifeClimate(ExtaLifeChannel, ClimateEntity):
 
     @property
     def hvac_action(self):
+        if self.channel_data.get("waiting_to_synchronize"):
+          return HVACAction.IDLE
         if self.channel_data.get("valve_val") != 100:
           return HVACAction.HEATING
         return HVACAction.OFF
