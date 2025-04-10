@@ -123,6 +123,7 @@ MAP_EXTA_ATTRIBUTE_TO_DEV_CLASS = {
     "active_energy_solar": SensorDeviceClass.ENERGY,
     "reactive_energy_solar": ExtaSensorDeviceClass.REACTIVE_ENERGY,
     "manual_energy": ExtaSensorDeviceClass.MANUAL_ENERGY,
+    "valve_val": SensorDeviceClass.POWER_FACTOR,
 }
 
 VIRTUAL_SENSOR_RESTRICTIONS = {
