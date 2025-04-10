@@ -112,8 +112,6 @@ class ExtaLifeClimate(ExtaLifeChannel, ClimateEntity):
 
     @property
     def hvac_mode(self):
-        if self.channel_data.get("valve_val") == 100:
-          return HVACMode.OFF
         return EXTA_HVAC_MODE.get(self.channel_data.get("work_mode"))
 
     @property
