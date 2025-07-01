@@ -515,7 +515,7 @@ class ChannelDataManager:
                 self.core.push_channels(component_name, channels)
 
                 # 'sync' call to synchronize channels' stack with platform setup
-                await self._hass.config_entries.async_forward_entry_setup(
+                await self._hass.config_entries.async_forward_entry_setups(
                     self._config_entry, component_name
                 )
                 # self._hass.async_create_task(
