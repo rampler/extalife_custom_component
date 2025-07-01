@@ -509,14 +509,18 @@ class ChannelDataManager:
 
             # sensors must be last as platforms will delegate their attributes to virtual sensors
             component_configs[DOMAIN_SENSOR] = component_configs.pop(DOMAIN_SENSOR)
+            
+            def platforms = []
 
             for component_name, channels in component_configs.items():
                 # store array of channels (variable 'channels') for each platform
                 self.core.push_channels(component_name, channels)
 
                 # 'sync' call to synchronize channels' stack with platform setup
-                await self._hass.config_entries.async_forward_entry_setups(
-                    self._config_entry, component_name
+                platforms.append(component_name)
+                
+            await self._hass.config_entries.async_forward_entry_setups(
+                    self._config_entry, platforms
                 )
                 # self._hass.async_create_task(
                 #     self._hass.config_entries.async_forward_entry_setup(
