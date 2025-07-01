@@ -510,7 +510,7 @@ class ChannelDataManager:
             # sensors must be last as platforms will delegate their attributes to virtual sensors
             component_configs[DOMAIN_SENSOR] = component_configs.pop(DOMAIN_SENSOR)
             
-            def platforms = []
+            platforms = []
 
             for component_name, channels in component_configs.items():
                 # store array of channels (variable 'channels') for each platform
